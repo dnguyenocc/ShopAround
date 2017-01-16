@@ -184,12 +184,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
             // set date label formatter
             //graphView.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
 
-            // set manual x bounds to have nice steps
-            graphView.getViewport().setMinX(list.get(0).getX());
-            graphView.getViewport().setMaxX(list.get(list.size()-1).getX());
-            graphView.getViewport().setXAxisBoundsManual(true);
 
             Float min = Collections.min(product.getPrices().values());
+            Float max = Collections.max(product.getPrices().values());
             if (min == product.getCurrentPrice()) {
                 bestPriceTextView.setText("Yes");
                 bestPriceTextView.setTextColor(getResources().getColor(R.color.green));
@@ -199,6 +196,21 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
             priceHistoryTextView.setText(priceHistory);
             dateHistoryTextView.setText(dateHistory);
+
+
+            // set manual x bounds to have nice steps
+            graphView.getViewport().setMinX(list.get(0).getX());
+            graphView.getViewport().setMaxX(list.get(list.size()-1).getX());
+            graphView.getViewport().setXAxisBoundsManual(true);
+
+            // set manual X bounds
+            graphView.getViewport().setYAxisBoundsManual(true);
+            graphView.getViewport().setMinY(min-50);
+            graphView.getViewport().setMaxY(max+50);
+
+            graphView.getViewport().setScalable(true);
+            graphView.getViewport().setScalableY(true);
+
 
 
 
