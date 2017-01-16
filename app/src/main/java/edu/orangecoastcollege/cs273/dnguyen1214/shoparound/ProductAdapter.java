@@ -64,6 +64,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         ImageView productImageView = (ImageView) view.findViewById(R.id.productImageView);
         TextView productNameTextView = (TextView) view.findViewById(R.id.productNameTextView);
         TextView productPriceTextView = (TextView) view.findViewById(R.id.productPriceTextView);
+        TextView productChoiceTextView = (TextView) view.findViewById(R.id.choiceTextView);
         LinearLayout productListLinearLayout = (LinearLayout) view.findViewById(R.id.productListLinearLayout);
 
         productListLinearLayout.setTag(product);
@@ -74,6 +75,11 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         ImageLoader imageLoader = MySingleton.getInstance(this.getContext()).getImageLoader();
         imageLoader.get(product.getProductUrl().toString(),ImageLoader.getImageListener(productImageView,R.drawable.laptop,R.drawable.laptop));
+        if (productChoiceTextView!=null)
+        {
+            productChoiceTextView.setText(String.valueOf(pos+1));
+        }
+
         return view;
     }
 }

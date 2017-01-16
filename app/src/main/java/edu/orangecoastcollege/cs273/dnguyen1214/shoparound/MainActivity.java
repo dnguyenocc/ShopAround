@@ -41,9 +41,9 @@ import java.util.Iterator;
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 100;
     private Context context = this;
-    private ArrayList<Product> allProducts;
-    private ListView productListView;
-    private ProductAdapter productAdapter;
+    private ArrayList<Product> topProducts,allProducts;
+    private ListView productListView,topProductListView;
+    private ProductAdapter productAdapter, topProductAdapter;
     private static final String TAG = HttpHandler.class.getSimpleName();
     private EditText priceFromEditText;
     private EditText priceToEditText;
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         */
 
         productListView = (ListView) findViewById(R.id.productListView);
+        topProductListView = (ListView) findViewById(R.id.topProductListView);
         priceFromEditText = (EditText) findViewById(R.id.priceFromEditText);
         priceToEditText = (EditText) findViewById(R.id.priceToEditText);
         priceRangeSpinner = (Spinner) findViewById(R.id.priceRangeSpinner);
@@ -150,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
             if (jsonStr != null) {
                 try {
                     allProducts = new ArrayList<>();
+                    topProducts = new ArrayList<>();
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
                     // Getting JSON Array node
@@ -172,6 +174,11 @@ public class MainActivity extends AppCompatActivity {
 
                         Product product = new Product(sku,name,seller,currentPrice,originalPrice,prices,productUrl);
                         allProducts.add(product);
+                    }
+                    for (int i=0;i<3;i++)
+                    {
+                        topProducts.add(allProducts.get(0));
+                        allProducts.remove(0);
                     }
 
 
@@ -210,6 +217,10 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(result);
             productAdapter = new ProductAdapter(MainActivity.this,R.layout.product_list_item,allProducts);
             productListView.setAdapter(productAdapter);
+
+            topProductAdapter= new ProductAdapter(MainActivity.this,R.layout.top_product_list_item,topProducts);
+            topProductListView.setAdapter(topProductAdapter);
+
 
         }
     }

@@ -7,4 +7,5 @@
     <string name="recommendation">Top 3 recommendations</string>
     <string name="best_price">Best price: </string>
     <string name="price_history">Price history</string>
+    <string name="other">Other options</string>
 </resources>
