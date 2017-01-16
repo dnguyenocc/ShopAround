@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText priceToEditText;
     private String url;
     private Spinner priceRangeSpinner;
-    private LinearLayout priceFromLinearLayout, priceToLinearLayout;
+    private LinearLayout priceRangeLinearLayout, mainLinearLayout;
     private String fromText,toText;
 
     @Override
@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         priceFromEditText = (EditText) findViewById(R.id.priceFromEditText);
         priceToEditText = (EditText) findViewById(R.id.priceToEditText);
         priceRangeSpinner = (Spinner) findViewById(R.id.priceRangeSpinner);
-        priceFromLinearLayout = (LinearLayout) findViewById(R.id.priceFromLinearLayout);
-        priceToLinearLayout = (LinearLayout) findViewById(R.id.priceToLinearLayout);
+        priceRangeLinearLayout = (LinearLayout) findViewById(R.id.priceRangeLinearLayout);
+        mainLinearLayout = (LinearLayout) findViewById(R.id.activity_main);
 
         ArrayAdapter<String> priceRangeSpinnerAdapter =
                 new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item,
@@ -87,12 +87,16 @@ public class MainActivity extends AppCompatActivity {
             String selectedPrice = String.valueOf(parent.getItemAtPosition(position));
             if (selectedPrice.equals("Custom"))
             {
-                priceFromLinearLayout.setVisibility(View.VISIBLE);
-                priceToLinearLayout.setVisibility(View.VISIBLE);
+                mainLinearLayout.removeView(productListView);
+                mainLinearLayout.addView(priceRangeLinearLayout);
+                mainLinearLayout.addView(productListView);
+                priceRangeLinearLayout.setVisibility(View.VISIBLE);
+
+
             }
             else {
-                priceFromLinearLayout.setVisibility(View.INVISIBLE);
-                priceToLinearLayout.setVisibility(View.INVISIBLE);
+                mainLinearLayout.removeView(priceRangeLinearLayout);
+                priceRangeLinearLayout.setVisibility(View.INVISIBLE);
 
                 if (selectedPrice.equals("$200 - $500")) {
                     fromText = "200";
