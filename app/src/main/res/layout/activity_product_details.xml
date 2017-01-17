@@ -87,4 +87,11 @@
         android:textAlignment="center"
         android:textColor="@color/green" />
 
+    <Button
+        android:text="@string/buy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buyButton"
+        android:onClick="buy" />
+
 </LinearLayout>

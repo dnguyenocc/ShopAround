@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -170,9 +171,10 @@ public class MainActivity extends AppCompatActivity {
 
                         HashMap<String, Float> prices = new HashMap<String, Float>();
 
-                        URL productUrl = new URL(productJSON.getString("imgsrc"));
+                        Uri productImageUri = Uri.parse(productJSON.getString("imgsrc"));
+                        String productUrl = productJSON.getString("link");
 
-                        Product product = new Product(sku,name,seller,currentPrice,originalPrice,prices,productUrl);
+                        Product product = new Product(sku,name,seller,currentPrice,originalPrice,prices,productUrl, productImageUri);
                         allProducts.add(product);
                     }
                     for (int i=0;i<3;i++)
@@ -193,9 +195,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
+                } 
 
             } else {
                 Log.e(TAG, "Couldn't get json from server.");

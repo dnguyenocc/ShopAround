@@ -74,7 +74,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         productPriceTextView.setText(format.format(product.getCurrentPrice()));
 
         ImageLoader imageLoader = MySingleton.getInstance(this.getContext()).getImageLoader();
-        imageLoader.get(product.getProductUrl().toString(),ImageLoader.getImageListener(productImageView,R.drawable.laptop,R.drawable.laptop));
+        imageLoader.get(product.getProductImageUri().toString(),ImageLoader.getImageListener(productImageView,R.drawable.laptop,R.drawable.laptop));
         if (productChoiceTextView!=null)
         {
             productChoiceTextView.setText(String.valueOf(pos+1) + " choice");

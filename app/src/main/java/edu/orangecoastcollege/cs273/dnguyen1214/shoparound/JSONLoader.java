@@ -1,6 +1,7 @@
 package edu.orangecoastcollege.cs273.dnguyen1214.shoparound;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -69,9 +70,10 @@ public class JSONLoader {
                         Log.e("Shop Around prices", e.getMessage());
                     }
                 }
-                URL url = new URL(productJSON.getString("Link"));
+                String productUrl = productJSON.getString("Link");
+                Uri url = Uri.parse(productUrl);
 
-                Product product = new Product(sku,name,seller,currentPrice,originalPrice,prices,url);
+                Product product = new Product(sku,name,seller,currentPrice,originalPrice,prices,productUrl,url);
                 allProductLists.add(product);
             }
         }
@@ -121,9 +123,11 @@ public class JSONLoader {
                         Log.e("Shop Around prices", e.getMessage());
                     }
                 }
-                URL url = new URL(productJSON.getString("Link"));
+                String productUrl = productJSON.getString("Link");
 
-                Product product = new Product(sku,name,seller,currentPrice,originalPrice,prices,url);
+                Uri url = Uri.parse(productJSON.getString("Link"));
+
+                Product product = new Product(sku,name,seller,currentPrice,originalPrice,prices,productUrl,url);
                 allProductLists.add(product);
             }
         }

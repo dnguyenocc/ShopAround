@@ -1,7 +1,9 @@
 package edu.orangecoastcollege.cs273.dnguyen1214.shoparound;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 
 import java.net.URL;
 import java.util.Date;
@@ -19,11 +21,12 @@ public class Product implements Parcelable{
     float currentPrice;
     float originalPrice;
     HashMap<String,Float> prices;
-    URL productUrl;
+    String productUrl;
+    Uri productImageUri;
 
 
     public Product(String sku, String name, String seller, float currentPrice,
-                   float originalPrice, HashMap<String,Float> prices, URL productUrl)
+                   float originalPrice, HashMap<String,Float> prices, String productUrl, Uri productImageUri)
     {
         this.sku = sku;
         this.name = name;
@@ -32,6 +35,7 @@ public class Product implements Parcelable{
         this.originalPrice = originalPrice;
         this.prices = prices;
         this.productUrl = productUrl;
+        this.productImageUri = productImageUri;
     }
 
 
@@ -41,6 +45,8 @@ public class Product implements Parcelable{
         seller = in.readString();
         currentPrice = in.readFloat();
         originalPrice = in.readFloat();
+        productUrl = in.readString();
+        productImageUri = in.readParcelable(Uri.class.getClassLoader());
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -61,8 +67,8 @@ public class Product implements Parcelable{
     public float getCurrentPrice() {return  currentPrice;}
     public float getOriginalPrice() {return  originalPrice;}
     public HashMap<String,Float> getPrices(){return prices;}
-    public URL getProductUrl() {return productUrl;}
-
+    public String getProductUrl() {return productUrl;}
+    public Uri getProductImageUri() {return productImageUri;}
     public void setPrices(HashMap<String,Float> newPrices){prices = newPrices;}
 
 
@@ -78,6 +84,7 @@ public class Product implements Parcelable{
         parcel.writeString(seller);
         parcel.writeFloat(currentPrice);
         parcel.writeFloat(originalPrice);
-        parcel.writeValue(productUrl);
+        parcel.writeString(productUrl);
+        parcel.writeParcelable(productImageUri, i);
     }
 }

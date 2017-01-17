@@ -2,10 +2,12 @@ package edu.orangecoastcollege.cs273.dnguyen1214.shoparound;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -105,6 +107,16 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     }
 
+    public void buy(View view)
+    {
+//        Log.e("link",product.getProductUrl());
+        String productUrl = product.getProductUrl();
+        Uri webpage = Uri.parse(product.getProductUrl());
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
 
     private class GetPrices extends AsyncTask<Void, Void, Void> {
         @Override
@@ -235,8 +247,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
             graphView.getViewport().setScalable(true);
             graphView.getViewport().setScalableY(true);
-
-
 
 
         }
