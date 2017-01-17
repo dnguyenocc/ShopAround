@@ -81,19 +81,19 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Date now = new Date(Calendar.getInstance().getTimeInMillis());
         Date endOfJuly = now;
         Date endOfNovember = now;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss", Locale.US);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US);
         try {
             String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-            endOfJuly = dateFormat.parse(year+"-07-30 00:00:00");
-            endOfNovember = dateFormat.parse(year+"-11-30 00:00:00");
+            endOfJuly = simpleDateFormat.parse(year+"-07-30 00:00:00");
+            endOfNovember = simpleDateFormat.parse(year+"-11-30 00:00:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if ((now.getTime()-endOfJuly.getTime())> TimeUnit.DAYS.toMillis(30))
+        if ((endOfJuly.getTime()-now.getTime())> TimeUnit.DAYS.toMillis(30))
         {
             recommendationTextView.setText("Best deals tend to appear in between the last week in July and the first three weeks in August");
         }
-        else if ((now.getTime()-endOfNovember.getTime())> TimeUnit.DAYS.toMillis(30))
+        else if ((endOfNovember.getTime()-now.getTime())> TimeUnit.DAYS.toMillis(30))
         {
             recommendationTextView.setText("Best deals tend to appear in November/December ");
         }
@@ -142,7 +142,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                         String dateText = productJSON.getString("Date");
                         float currentPrice = (float) productJSON.getDouble("Price");
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss", Locale.US);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US);
                         Date date = new Date(Calendar.getInstance().getTimeInMillis());
                         try {
                             date = dateFormat.parse(dateText);
