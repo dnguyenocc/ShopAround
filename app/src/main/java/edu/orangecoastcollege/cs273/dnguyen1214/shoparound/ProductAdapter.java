@@ -77,7 +77,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         imageLoader.get(product.getProductUrl().toString(),ImageLoader.getImageListener(productImageView,R.drawable.laptop,R.drawable.laptop));
         if (productChoiceTextView!=null)
         {
-            productChoiceTextView.setText(String.valueOf(pos+1));
+            productChoiceTextView.setText(String.valueOf(pos+1) + " choice");
         }
 
         return view;

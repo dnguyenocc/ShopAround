@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class ProductDetailsActivity extends AppCompatActivity {
 
@@ -40,7 +41,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private String url;
     private List<DataPoint> list;
     private TextView productNameTextView;
-    private TextView bestPriceTextView;
+    private TextView bestPriceTextView, recommendationTextView;
     private TextView priceHistoryTextView, dateHistoryTextView;
     private String dateHistory, priceHistory;
 
@@ -53,6 +54,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         bestPriceTextView = (TextView) findViewById(R.id.bestPriceTextView);
         priceHistoryTextView = (TextView) findViewById(R.id.priceHistoryTextView);
         dateHistoryTextView = (TextView) findViewById(R.id.dateHistoryTextView);
+        recommendationTextView = (TextView) findViewById(R.id.recommendationTextView);
         Intent intent = getIntent();
         product =  intent.getParcelableExtra("laptop");
         productNameTextView.setText(product.getName());
@@ -76,6 +78,29 @@ public class ProductDetailsActivity extends AppCompatActivity {
             }
         });
 
+        Date now = new Date(Calendar.getInstance().getTimeInMillis());
+        Date endOfJuly = now;
+        Date endOfNovember = now;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss", Locale.US);
+        try {
+            String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+            endOfJuly = dateFormat.parse(year+"-07-30 00:00:00");
+            endOfNovember = dateFormat.parse(year+"-11-30 00:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if ((now.getTime()-endOfJuly.getTime())> TimeUnit.DAYS.toMillis(30))
+        {
+            recommendationTextView.setText("Best deals tend to appear in between the last week in July and the first three weeks in August");
+        }
+        else if ((now.getTime()-endOfNovember.getTime())> TimeUnit.DAYS.toMillis(30))
+        {
+            recommendationTextView.setText("Best deals tend to appear in November/December ");
+        }
+        else
+        {
+            recommendationTextView.setText("Buy now!");
+        }
 
 
     }
