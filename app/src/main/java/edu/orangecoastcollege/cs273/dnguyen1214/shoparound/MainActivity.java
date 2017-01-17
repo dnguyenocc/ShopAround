@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText priceToEditText;
     private String url;
     private Spinner priceRangeSpinner;
-    private LinearLayout priceRangeLinearLayout, mainLinearLayout;
+    private LinearLayout priceRangeLinearLayout, mainLinearLayout, productListLinearLayout;
     private String fromText,toText;
 
     @Override
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         priceRangeSpinner = (Spinner) findViewById(R.id.priceRangeSpinner);
         priceRangeLinearLayout = (LinearLayout) findViewById(R.id.priceRangeLinearLayout);
         mainLinearLayout = (LinearLayout) findViewById(R.id.activity_main);
+        productListLinearLayout = (LinearLayout) findViewById(R.id.productListLinearLayout);
 
         ArrayAdapter<String> priceRangeSpinnerAdapter =
                 new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item,
@@ -88,11 +89,10 @@ public class MainActivity extends AppCompatActivity {
             String selectedPrice = String.valueOf(parent.getItemAtPosition(position));
             if (selectedPrice.equals("Custom"))
             {
-                mainLinearLayout.removeView(productListView);
+                mainLinearLayout.removeView(productListLinearLayout);
                 mainLinearLayout.addView(priceRangeLinearLayout);
-                mainLinearLayout.addView(productListView);
                 priceRangeLinearLayout.setVisibility(View.VISIBLE);
-
+                mainLinearLayout.addView(productListLinearLayout);
 
             }
             else {
@@ -271,6 +271,9 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             getData();
+            mainLinearLayout.removeView(priceRangeLinearLayout);
+            priceRangeLinearLayout.setVisibility(View.INVISIBLE);
+
         }
     }
 }
